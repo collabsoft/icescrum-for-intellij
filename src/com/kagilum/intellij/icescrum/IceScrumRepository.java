@@ -25,7 +25,9 @@ import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.contrib.ssl.EasySSLProtocolSocketFactory;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.protocol.Protocol;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,6 +51,8 @@ public class IceScrumRepository extends BaseRepositoryImpl {
 
     public IceScrumRepository(IceScrumRepositoryType type) {
         super(type);
+        Protocol easyhttps = new Protocol("https", new EasySSLProtocolSocketFactory(), 443);
+        Protocol.registerProtocol("https", easyhttps);
         this.setUseHttpAuthentication(true);
     }
 
@@ -104,8 +108,8 @@ public class IceScrumRepository extends BaseRepositoryImpl {
                 }
                 method.setRequestHeader("Content-type","text/json");
                 HttpClient client = getHttpClient();
-                client.executeMethod(myMethod);
-                int statusCode = myMethod.getStatusCode();
+                client.executeMethod(method);
+                int statusCode = method.getStatusCode();
                 if (statusCode != HttpStatus.SC_OK) {
                     checkServerStatus(statusCode);
                 }
