@@ -32,7 +32,9 @@
       ]]>
   </description>
   <version>1.0</version>
-  <vendor>Kagilum</vendor>
+  <vendor email="contact@kagilum.com"
+          url="https://www.kagilum.com/"
+          logo="https://www.kagilum.com/wp-content/plugins/kagilum/themes/kagilum/images/logo.png">Kagilum</vendor>
 
   <idea-version since-build="8000"/>
 
