@@ -24,14 +24,14 @@
       </p>
       <p>
       You can choose tasks from your project and start them.<br/>
-      Be sure to take a look at the <a href="https://www.kagilum.com/documentation/">iceScrum & Intellij integration</a> documentation, as it contains a full preview of this plugin.
+      Be sure to take a look at the <a href="https://www.kagilum.com/documentation/icescrum-intellij-integration/">iceScrum & Intellij integration</a> documentation, as it contains a full preview of this plugin.
       </p>
       <p>
       Task titles (and reference ID's) are then added automatically to each commit so your iceScrum Pro version (as it have an integration with SVN / GIT) will know that some commit is about some task.
       </p>
       ]]>
   </description>
-  <version>1.0.2</version>
+  <version>1.1</version>
   <vendor email="contact@kagilum.com"
           url="https://www.kagilum.com/"
           logo="https://www.kagilum.com/wp-content/plugins/kagilum/themes/kagilum/images/logo.png">Kagilum</vendor>

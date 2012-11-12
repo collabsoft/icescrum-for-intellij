@@ -21,8 +21,8 @@ package com.kagilum.intellij.icescrum;
 
 import com.google.gson.*;
 import com.intellij.tasks.Task;
-import com.intellij.tasks.impl.BaseRepository;
 import com.intellij.tasks.impl.BaseRepositoryImpl;
+import com.intellij.util.xmlb.annotations.Tag;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.contrib.ssl.EasySSLProtocolSocketFactory;
@@ -40,10 +40,15 @@ import java.util.regex.Pattern;
 
 import static com.intellij.openapi.util.text.StringUtil.isNotEmpty;
 
+@Tag("iceScrum")
 public class IceScrumRepository extends BaseRepositoryImpl {
 
     private String pkey;
-    private String serverUrl = null;
+    private String serverUrl;
+
+    public void setServerUrl(@Nullable String serverUrl) {
+        this.serverUrl = serverUrl;
+    }
 
     public IceScrumRepository() {
         super();
@@ -51,9 +56,7 @@ public class IceScrumRepository extends BaseRepositoryImpl {
 
     public IceScrumRepository(IceScrumRepositoryType type) {
         super(type);
-        Protocol easyhttps = new Protocol("https", new EasySSLProtocolSocketFactory(), 443);
-        Protocol.registerProtocol("https", easyhttps);
-        this.setUseHttpAuthentication(true);
+        this.setUrl("http://[server]/p/[pkey]");
     }
 
     private IceScrumRepository(IceScrumRepository other) {
@@ -92,7 +95,7 @@ public class IceScrumRepository extends BaseRepositoryImpl {
     }
 
     @Override
-    public BaseRepository clone() {
+    public IceScrumRepository clone() {
         return new IceScrumRepository(this);
     }
 
@@ -140,6 +143,9 @@ public class IceScrumRepository extends BaseRepositoryImpl {
     }
 
     private boolean extractSettings(String url) {
+        Protocol easyhttps = new Protocol("https", new EasySSLProtocolSocketFactory(), 443);
+        Protocol.registerProtocol("https", easyhttps);
+        this.setUseHttpAuthentication(true);
         if (url.indexOf("/p/") > 0){
             this.serverUrl = url.substring(0, url.indexOf("/p/"));
         }else {
@@ -170,5 +176,17 @@ public class IceScrumRepository extends BaseRepositoryImpl {
         return "iceScrum: " + (this.pkey == null ? "invalid parameters" : this.pkey);
     }
 
+    @Nullable
+    public String getPkey() {
+        return pkey;
+    }
 
+    public void setPkey(@Nullable String pkey) {
+        this.pkey = pkey;
+    }
+
+    @Nullable
+    public String getServerUrl() {
+        return serverUrl;
+    }
 }
