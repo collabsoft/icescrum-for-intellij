@@ -104,7 +104,7 @@ public class IceScrumTask extends com.intellij.tasks.Task {
 
     @Override
     public boolean isIssue() {
-        return false;
+        return true;
     }
 
     @Override
